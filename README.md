@@ -1,3 +1,5 @@
+<img src="./assets/images/icon.png" alt="" width="50" height="50"/>
+
 # notes_app
 
 A new Flutter project.
