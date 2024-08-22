@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
@@ -18,35 +19,39 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(const CreateNoteScreen());
-        },
-        child: Icon(Icons.add, color: AppColors.white, size: 40),
+        child: Icon(Icons.add, size: 30, color: AppColors.white),
+        elevation: 10,
         shape: CircleBorder(),
         backgroundColor: AppColors.primary,
-        elevation: 7,
+        onPressed: () {
+          Get.to(CreateNoteScreen());
+        },
       ),
+
       appBar: homeAppBar(),
       body: Container(
-        width: double.infinity,
         color: AppColors.primary,
+        width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Image(image: AssetImage('assets/images/rafiki.png')),
+            const Image(
+              image: AssetImage('assets/images/rafiki.png'),
+            ),
             const Padding(
-              padding: EdgeInsets.only(bottom: 70),
+              padding: EdgeInsets.only(bottom: 60),
               child: Text(
                 'Create your first note !',
                 style: TextStyle(
-                  color: AppColors.white,
-                  fontWeight: AppFontWeights.light,
-                  fontSize: AppFontSizes.num20
-                )
+                    color: AppColors.white,
+                    fontSize: AppFontSizes.num20,
+                    fontWeight: AppFontWeights.light
+                ),
               )
             )
           ],
-        ),
+        )
       ),
     );
   }

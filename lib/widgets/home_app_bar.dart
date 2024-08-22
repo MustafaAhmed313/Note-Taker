@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
+import 'package:notes_app/widgets/button_with_icon.dart';
 
 PreferredSizeWidget homeAppBar() {
   return AppBar(
     backgroundColor: AppColors.primary,
     leadingWidth: 150,
-    leading: Padding(
+    leading: const Padding(
       padding: EdgeInsets.only(left: 24),
       child: Text(
         'Notes',
@@ -15,34 +16,14 @@ PreferredSizeWidget homeAppBar() {
             color: AppColors.white,
             fontSize: AppFontSizes.num43,
             fontWeight: AppFontWeights.semiBold
-        ),
+        )
       ),
     ),
     actions: [
-      Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: AppColors.secondary,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-          child: Icon(Icons.search_rounded, color: AppColors.white),
-        ),
-      ),
+      buttonWithIcon(icon: Icons.search_rounded),
       SizedBox(width: 20),
-      Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: AppColors.secondary,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-          child: Icon(Icons.info_outline_rounded, color: AppColors.white),
-        ),
-      ),
-      SizedBox(width: 24)
+      buttonWithIcon(icon: Icons.info_outline_rounded),
+      SizedBox(width: 24),
     ],
   );
 }
