@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
 import 'package:notes_app/screens/create_note_screen.dart';
 import 'package:notes_app/widgets/home_app_bar.dart';
-
-import '../constants/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
