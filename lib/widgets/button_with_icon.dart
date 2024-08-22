@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constants/app_colors.dart';
 
 Widget buttonWithIcon({
-  required IconData icon
+  required IconData icon,
+  void Function()? onTap,
 }) {
   return GestureDetector(
+    onTap: onTap,
     child: Container(
       decoration: BoxDecoration(
         color: AppColors.secondary,
