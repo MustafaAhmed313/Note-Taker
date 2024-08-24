@@ -1,0 +1,3 @@
+enum SnacBarStatus {
+  SUCCESS, ERROR
+}
