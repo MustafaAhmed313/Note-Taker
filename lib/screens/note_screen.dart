@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
+import 'package:notes_app/database/note_helper.dart';
 import 'package:notes_app/widgets/custom_text_input.dart';
 import 'package:notes_app/widgets/note_app_bar.dart';
 
+import '../constants/modes.dart';
+import '../models/note.dart';
+
 class NoteScreen extends StatefulWidget {
-  const NoteScreen({super.key});
+  final Modes _mode;
+  final int _index;
+
+  NoteScreen({super.key, Modes mode = Modes.CREATE , int index = -1}) : _index = index, _mode = mode;
 
   @override
   State<NoteScreen> createState() => _NoteScreenState();
@@ -18,12 +25,19 @@ class _NoteScreenState extends State<NoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget._mode == Modes.UPDATE) {
+      title.text = NoteHelper.notes[widget._index].title?? '';
+      description.text = NoteHelper.notes[widget._index].description?? '';
+    }
+
     return Scaffold(
       backgroundColor: AppColors.primary,
       appBar: noteAppBar(
         title: title,
         description: description,
-        context: context
+        context: context,
+        mode: widget._mode,
+        index: widget._index
       ),
       body: SingleChildScrollView(
         child: Container(
