@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
+import 'package:notes_app/constants/modes.dart';
 import 'package:notes_app/database/note_helper.dart';
 import 'package:notes_app/screens/note_screen.dart';
 import 'package:notes_app/widgets/home_app_bar.dart';
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: CircleBorder(),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Get.to(NoteScreen());
+          Get.to(NoteScreen(mode: Modes.CREATE));
         },
       ),
 
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.only(top: 40, left: 24, right: 24),
           child: ListView.separated(
             itemBuilder: (context, index) => noteItem(
-                note: NoteHelper.notes[index],
+                index: index,
                 color: getNoteColor(index: index),
             ),
             separatorBuilder: (context , index) => SizedBox(height: 20),
