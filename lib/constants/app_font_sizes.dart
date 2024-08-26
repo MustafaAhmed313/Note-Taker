@@ -5,5 +5,6 @@ class AppFontSizes {
   static const double num23 = 23;
   static const double num35 = 35;
   static const double num18 = 18;
+  static const double num25 = 25;
 }
 

@@ -4,8 +4,12 @@ import 'package:lottie/lottie.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
-import 'package:notes_app/screens/create_note_screen.dart';
+import 'package:notes_app/database/note_helper.dart';
+import 'package:notes_app/screens/note_screen.dart';
 import 'package:notes_app/widgets/home_app_bar.dart';
+import 'package:notes_app/widgets/note_item.dart';
+
+import '../models/note.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +19,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  List<Color> noteColors = [
+    AppColors.lightPink,
+    AppColors.lightRed,
+    AppColors.lightGreen,
+    AppColors.lightYellow,
+    AppColors.lightBlue,
+    AppColors.lightViolet
+  ];
+
+  @override
+  void initState() {
+    NoteHelper.getNotes();
+    super.initState();
+  }
+
+  Color getNoteColor({required int index}) {
+    return noteColors[index % noteColors.length];
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(NoteHelper.notes.length);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add, size: 30, color: AppColors.white),
@@ -24,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: CircleBorder(),
         backgroundColor: AppColors.primary,
         onPressed: () {
-          Get.to(CreateNoteScreen());
+          Get.to(NoteScreen());
         },
       ),
 
@@ -32,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         color: AppColors.primary,
         width: double.infinity,
-        child: Column(
+        child: NoteHelper.notes.length == 0 ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -51,7 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             )
           ],
-        )
+        ) : Padding(
+          padding: EdgeInsets.only(top: 40, left: 24, right: 24),
+          child: ListView.separated(
+            itemBuilder: (context, index) => noteItem(
+                note: NoteHelper.notes[index],
+                color: getNoteColor(index: index),
+            ),
+            separatorBuilder: (context , index) => SizedBox(height: 20),
+            itemCount: NoteHelper.notes.length
+          ),
+        ),
       ),
     );
   }

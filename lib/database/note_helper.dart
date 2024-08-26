@@ -14,7 +14,7 @@ class NoteHelper {
   }
 
   static void getNotes() {
-    notes = Hive.box(noteBox).get(noteKey);
+    notes = Hive.box(noteBox).get(noteKey).cast<Note>().reversed.toList();
   }
 
 }

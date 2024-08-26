@@ -5,14 +5,14 @@ import 'package:notes_app/constants/app_font_weights.dart';
 import 'package:notes_app/widgets/custom_text_input.dart';
 import 'package:notes_app/widgets/note_app_bar.dart';
 
-class CreateNoteScreen extends StatefulWidget {
-  const CreateNoteScreen({super.key});
+class NoteScreen extends StatefulWidget {
+  const NoteScreen({super.key});
 
   @override
-  State<CreateNoteScreen> createState() => _CreateNoteScreenState();
+  State<NoteScreen> createState() => _NoteScreenState();
 }
 
-class _CreateNoteScreenState extends State<CreateNoteScreen> {
+class _NoteScreenState extends State<NoteScreen> {
   TextEditingController title = TextEditingController();
   TextEditingController description = TextEditingController();
 
