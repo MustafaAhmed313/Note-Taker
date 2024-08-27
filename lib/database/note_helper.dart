@@ -14,11 +14,16 @@ class NoteHelper {
   }
 
   static void getNotes() {
-    notes = Hive.box(noteBox).get(noteKey).cast<Note>().reversed.toList();
+    notes = Hive.box(noteBox).get(noteKey).cast<Note>();
   }
 
   static void updateNote(Note note, int index) {
     notes[index] = note;
+    Hive.box(noteBox).put(noteKey, notes);
+  }
+
+  static void deleteNote(int index) {
+    notes.removeAt(index);
     Hive.box(noteBox).put(noteKey, notes);
   }
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
 import 'package:notes_app/constants/modes.dart';
+import 'package:notes_app/constants/snac_bar_status.dart';
 import 'package:notes_app/database/note_helper.dart';
 import 'package:notes_app/screens/note_screen.dart';
+import 'package:notes_app/widgets/custom_snac_bar.dart';
 import 'package:notes_app/widgets/home_app_bar.dart';
 import 'package:notes_app/widgets/note_item.dart';
 
-import '../models/note.dart';
+import '../widgets/custom_alert_dialog.dart';
+import '../widgets/custom_text_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
           Get.to(NoteScreen(mode: Modes.CREATE));
         },
       ),
-
       appBar: homeAppBar(),
       body: Container(
         color: AppColors.primary,
@@ -71,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 'Create your first note !',
                 style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: AppFontSizes.num20,
-                    fontWeight: AppFontWeights.light
+                  color: AppColors.white,
+                  fontSize: AppFontSizes.num20,
+                  fontWeight: AppFontWeights.light
                 ),
               )
             )
@@ -81,9 +82,63 @@ class _HomeScreenState extends State<HomeScreen> {
         ) : Padding(
           padding: EdgeInsets.only(top: 40, left: 24, right: 24),
           child: ListView.separated(
-            itemBuilder: (context, index) => noteItem(
+            itemBuilder: (context, index) => Dismissible(
+              onDismissed: (direction) {
+                setState(() {
+                  NoteHelper.deleteNote(index);
+                });
+              },
+              confirmDismiss: (direction) {
+                return showDialog(context: context, builder: (context) {
+                  return customAlertDialog(
+                    content: 'Are your sure you want delete this note ?',
+                    actions: [
+                      customTextButton(
+                        text: 'Delete',
+                        color: AppColors.red,
+                        onTap: () {
+                          setState(() {
+                            NoteHelper.deleteNote(index);
+                          });
+                          Get.back();
+                          customSnackBar(
+                            context: context,
+                            content: 'The note deleted successfully',
+                            color: AppColors.green.withOpacity(0.5),
+                            status: SnacBarStatus.SUCCESS
+                          );
+                        }
+                      ),
+                      customTextButton(
+                        text: 'Keep',
+                        color: AppColors.green,
+                        onTap: () {
+                          Get.back();
+                        }
+                      )
+                    ]
+                  );
+                });
+              },
+              key: Key(index.toString()),
+              background: Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.delete, color: AppColors.white, size: 40)
+                  ],
+                ),
+              ),
+              child: noteItem(
                 index: index,
                 color: getNoteColor(index: index),
+              )
             ),
             separatorBuilder: (context , index) => SizedBox(height: 20),
             itemCount: NoteHelper.notes.length
