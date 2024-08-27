@@ -14,7 +14,6 @@ Widget noteItem({
   required Color color,
 }) {
   return GestureDetector(
-    onLongPress: () {},
     onTap: () {
       Get.to(NoteScreen(mode: Modes.UPDATE, index: index));
     },
