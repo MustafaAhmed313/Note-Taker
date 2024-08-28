@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../constants/app_colors.dart';
-
 Widget customTextInput({
-  required String placeholder,
-  required TextStyle placeHolderStyle,
   required TextStyle inputStyle,
-  required TextEditingController inputController
+  required TextEditingController inputController,
+  required InputDecoration decoration,
+  int? maxLines,
+  void Function(String)? onChanged
 }) {
   return TextField(
     controller: inputController,
-    decoration: InputDecoration(
-      hintText: placeholder,
-      hintStyle: placeHolderStyle,
-      border: InputBorder.none,
-    ),
+    decoration: decoration,
     style: inputStyle,
-    maxLines: null,
+    maxLines: maxLines,
+    onChanged: onChanged,
   );
 }

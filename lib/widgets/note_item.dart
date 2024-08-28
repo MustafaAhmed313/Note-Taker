@@ -15,7 +15,12 @@ Widget noteItem({
 }) {
   return GestureDetector(
     onTap: () {
-      Get.to(NoteScreen(mode: Modes.UPDATE, index: index));
+      Get.to(
+          NoteScreen(
+          mode: Modes.UPDATE,
+          index: NoteHelper.notes.indexOf(NoteHelper.searchList[index])
+        )
+      );
     },
     child: Container(
       decoration: BoxDecoration(
@@ -26,7 +31,7 @@ Widget noteItem({
       child: Padding(
         padding: EdgeInsets.only(top:21.5 , bottom: 21.5, left: 37.5, right: 37.5),
         child: Text(
-          '${NoteHelper.notes[index].title}',
+          '${NoteHelper.notes[NoteHelper.notes.indexOf(NoteHelper.searchList[index])].title}',
           style: TextStyle(
             color: AppColors.black,
             fontSize: AppFontSizes.num25,

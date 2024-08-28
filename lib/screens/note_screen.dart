@@ -47,32 +47,40 @@ class _NoteScreenState extends State<NoteScreen> {
                 SizedBox(height: 20),
                 customTextInput(
                   inputController: title,
-                  placeholder: 'Title',
-                  placeHolderStyle: TextStyle(
-                      color: AppColors.grayPlaceholders,
-                      fontSize: AppFontSizes.num48,
-                      fontWeight: AppFontWeights.regular
-                  ),
                   inputStyle: TextStyle(
                       color: AppColors.white,
                       fontWeight: AppFontWeights.regular,
                       fontSize: AppFontSizes.num35
-                  )
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Title',
+                    hintStyle: TextStyle(
+                        color: AppColors.grayPlaceholders,
+                        fontSize: AppFontSizes.num48,
+                        fontWeight: AppFontWeights.regular
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  maxLines: null
                 ),
                 SizedBox(height: 10),
                 customTextInput(
                   inputController: description,
-                  placeholder: 'Type something...',
-                  placeHolderStyle: TextStyle(
-                      color: AppColors.grayPlaceholders,
-                      fontSize: AppFontSizes.num23,
-                      fontWeight: AppFontWeights.regular
-                  ),
                   inputStyle: TextStyle(
                       color: AppColors.white,
                       fontWeight: AppFontWeights.regular,
                       fontSize: AppFontSizes.num23
-                  )
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Type something...',
+                    hintStyle: TextStyle(
+                        color: AppColors.grayPlaceholders,
+                        fontSize: AppFontSizes.num23,
+                        fontWeight: AppFontWeights.regular
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  maxLines: null
                 )
               ],
             ),
