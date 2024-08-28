@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
+import 'package:notes_app/screens/search_screen.dart';
 import 'package:notes_app/widgets/button_with_icon.dart';
 
 PreferredSizeWidget homeAppBar() {
@@ -20,7 +22,12 @@ PreferredSizeWidget homeAppBar() {
       ),
     ),
     actions: [
-      buttonWithIcon(icon: Icons.search_rounded),
+      buttonWithIcon(
+        icon: Icons.search_rounded,
+        onTap: () {
+          Get.to(SearchScreen());
+        }
+      ),
       SizedBox(width: 20),
       buttonWithIcon(icon: Icons.info_outline_rounded),
       SizedBox(width: 24),

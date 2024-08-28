@@ -7,7 +7,8 @@ class NoteAdapter extends TypeAdapter<Note> {
   Note read(BinaryReader reader) {
     return Note(
       title: reader.readString(),
-      description: reader.readString()
+      description: reader.readString(),
+      id: reader.readInt()
     );
   }
 
@@ -16,8 +17,9 @@ class NoteAdapter extends TypeAdapter<Note> {
 
   @override
   void write(BinaryWriter writer, Note obj) {
-    writer.writeString(obj.title!);
+    writer.writeString(obj.title);
     writer.writeString(obj.description!);
+    writer.writeInt(obj.id);
   }
 
 }

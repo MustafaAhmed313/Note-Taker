@@ -84,11 +84,12 @@ PreferredSizeWidget noteAppBar({
                       if (title.text != '') {
                         NoteHelper.createNote(
                           Note(
-                              title: title.text,
-                              description: description.text
+                            title: title.text,
+                            description: description.text,
+                            id: DateTime.timestamp().millisecond
                           )
                         );
-                        Get.to(HomeScreen());
+                        Get.offAll(HomeScreen());
                         customSnackBar(
                           context: context,
                           content: 'New note created successfully!',
@@ -127,8 +128,9 @@ PreferredSizeWidget noteAppBar({
             }else {
               NoteHelper.updateNote(
                 new Note(
-                    title: title.text,
-                    description: description.text
+                  title: title.text,
+                  description: description.text,
+                  id: DateTime.timestamp().millisecond
                 ),
                 index
               );

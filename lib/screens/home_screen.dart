@@ -34,12 +34,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    NoteHelper.getNotes();
+    setState(() {
+      NoteHelper.getNotes();
+      print('a: ' + NoteHelper.notes.toString());
+      print('b: ' + NoteHelper.searchList.toString());
+    });
     super.initState();
   }
 
   Color getNoteColor({required int index}) {
     return noteColors[index % noteColors.length];
+  }
+
+  Future<void> refreshList() async {
+    setState(() {});
   }
 
   @override
@@ -81,67 +89,70 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ) : Padding(
           padding: EdgeInsets.only(top: 40, left: 24, right: 24),
-          child: ListView.separated(
-            itemBuilder: (context, index) => Dismissible(
-              onDismissed: (direction) {
-                setState(() {
-                  NoteHelper.deleteNote(index);
-                });
-              },
-              confirmDismiss: (direction) {
-                return showDialog(context: context, builder: (context) {
-                  return customAlertDialog(
-                    content: 'Are your sure you want delete this note ?',
-                    actions: [
-                      customTextButton(
-                        text: 'Delete',
+          child: RefreshIndicator(
+            onRefresh: refreshList,
+            child: ListView.separated(
+                itemBuilder: (context, index) => Dismissible(
+                    onDismissed: (direction) {
+                      setState(() {
+                        NoteHelper.deleteNote(index);//index = 0
+                      });
+                    },
+                    confirmDismiss: (direction) {
+                      return showDialog(context: context, builder: (context) {
+                        return customAlertDialog(
+                            content: 'Are your sure you want delete this note ?',
+                            actions: [
+                              customTextButton(
+                                  text: 'Delete',
+                                  color: AppColors.red,
+                                  onTap: () {
+                                    setState(() {
+                                      NoteHelper.deleteNote(index);
+                                    });
+                                    Get.offAll(HomeScreen());
+                                    customSnackBar(
+                                        context: context,
+                                        content: 'The note deleted successfully',
+                                        color: AppColors.green.withOpacity(0.5),
+                                        status: SnacBarStatus.SUCCESS
+                                    );
+                                  }
+                              ),
+                              customTextButton(
+                                  text: 'Keep',
+                                  color: AppColors.green,
+                                  onTap: () {
+                                    Get.back();
+                                  }
+                              )
+                            ]
+                        );
+                      });
+                    },
+                    key: Key(index.toString()),
+                    background: Container(
+                      decoration: BoxDecoration(
                         color: AppColors.red,
-                        onTap: () {
-                          setState(() {
-                            NoteHelper.deleteNote(index);
-                          });
-                          Get.back();
-                          customSnackBar(
-                            context: context,
-                            content: 'The note deleted successfully',
-                            color: AppColors.green.withOpacity(0.5),
-                            status: SnacBarStatus.SUCCESS
-                          );
-                        }
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      customTextButton(
-                        text: 'Keep',
-                        color: AppColors.green,
-                        onTap: () {
-                          Get.back();
-                        }
-                      )
-                    ]
-                  );
-                });
-              },
-              key: Key(index.toString()),
-              background: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.delete, color: AppColors.white, size: 40)
+                        ],
+                      ),
+                    ),
+                    child: noteItem(
+                      index: index,
+                      color: getNoteColor(index: index),
+                    )
                 ),
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.delete, color: AppColors.white, size: 40)
-                  ],
-                ),
-              ),
-              child: noteItem(
-                index: index,
-                color: getNoteColor(index: index),
-              )
+                separatorBuilder: (context , index) => SizedBox(height: 20),
+                itemCount: NoteHelper.notes.length
             ),
-            separatorBuilder: (context , index) => SizedBox(height: 20),
-            itemCount: NoteHelper.notes.length
           ),
         ),
       ),
