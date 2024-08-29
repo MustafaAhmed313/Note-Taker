@@ -5,6 +5,7 @@ import 'package:notes_app/constants/app_colors.dart';
 import 'package:notes_app/constants/app_font_sizes.dart';
 import 'package:notes_app/constants/app_font_weights.dart';
 import 'package:notes_app/database/note_helper.dart';
+import 'package:notes_app/screens/home_screen.dart';
 import 'package:notes_app/widgets/custom_text_input.dart';
 
 import '../constants/snac_bar_status.dart';
@@ -45,6 +46,15 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(HomeScreen());
+        },
+        child: Icon(Icons.home, size: 30, color: AppColors.white),
+        elevation: 10,
+        shape: CircleBorder(),
+        backgroundColor: AppColors.primary,
+      ),
       backgroundColor: AppColors.primary,
       appBar: AppBar(
         backgroundColor: AppColors.primary,
@@ -111,7 +121,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               itemBuilder: (context, index) => Dismissible(
                                   onDismissed: (direction) {
                                     setState(() {
-                                      NoteHelper.deleteNote(index);
+                                      NoteHelper.notes;
                                     });
                                   },
                                   confirmDismiss: (direction) {
@@ -125,14 +135,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 onTap: () {
                                                   setState(() {
                                                     NoteHelper.deleteNote(index);
+                                                    Get.offAll(SearchScreen());
+                                                    customSnackBar(
+                                                        context: context,
+                                                        content: 'The note deleted successfully',
+                                                        color: AppColors.green.withOpacity(0.5),
+                                                        status: SnacBarStatus.SUCCESS
+                                                    );
                                                   });
-                                                  Get.offAll(SearchScreen());
-                                                  customSnackBar(
-                                                      context: context,
-                                                      content: 'The note deleted successfully',
-                                                      color: AppColors.green.withOpacity(0.5),
-                                                      status: SnacBarStatus.SUCCESS
-                                                  );
                                                 }
                                             ),
                                             customTextButton(
