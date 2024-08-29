@@ -39,7 +39,11 @@ PreferredSizeWidget noteAppBar({
       Spacer(),
       if (mode == Modes.CREATE)
         buttonWithIcon(
-          icon: Icons.remove_red_eye_outlined),
+          icon: Icons.remove_red_eye_outlined,
+          onTap: () {
+            Get.to(HomeScreen());
+          }
+        ),
       SizedBox(width: 20),
       if (mode == Modes.CREATE)
         buttonWithIcon(

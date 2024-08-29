@@ -29,9 +29,7 @@ class NoteHelper {
   }
 
   static void deleteNote(int index) {
-    print('index: ' + index.toString());
     notes.removeAt(NoteHelper.notes.indexOf(NoteHelper.searchList[index]));
-    searchList.removeAt(index);
     Hive.box(noteBox).put(noteKey, notes);
   }
 }
