@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) => Dismissible(
                     onDismissed: (direction) {
                       setState(() {
-                        NoteHelper.deleteNote(index);//index = 0
+                        refreshList();
                       });
                     },
                     confirmDismiss: (direction) {
@@ -109,14 +109,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onTap: () {
                                     setState(() {
                                       NoteHelper.deleteNote(index);
+                                      Get.offAll(HomeScreen());
+                                      customSnackBar(
+                                          context: context,
+                                          content: 'The note deleted successfully',
+                                          color: AppColors.green.withOpacity(0.5),
+                                          status: SnacBarStatus.SUCCESS
+                                      );
                                     });
-                                    Get.offAll(HomeScreen());
-                                    customSnackBar(
-                                        context: context,
-                                        content: 'The note deleted successfully',
-                                        color: AppColors.green.withOpacity(0.5),
-                                        status: SnacBarStatus.SUCCESS
-                                    );
                                   }
                               ),
                               customTextButton(
