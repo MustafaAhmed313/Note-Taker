@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Get.to(NoteScreen(mode: Modes.CREATE));
         },
       ),
-      appBar: homeAppBar(),
+      appBar: homeAppBar(context: context),
       body: Container(
         color: AppColors.primary,
         width: double.infinity,
