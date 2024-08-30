@@ -1,6 +1,6 @@
 <img src="./assets/images/icon.png" alt="" width="50" height="50"/>
 
-# notes_app
+# Note Taker
 
 A new Flutter project.
 
