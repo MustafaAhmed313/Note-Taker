@@ -51,6 +51,13 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def newApkName = "Note-Taker-${variant.buildType.name}.apk"
+            outputFileName = newApkName
+        }
+    }
 }
 
 flutter {
